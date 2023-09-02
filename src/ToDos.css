@@ -1,0 +1,69 @@
+.tachado-si {
+  text-decoration: line-through;
+}
+.tachado-no {
+  text-decoration: none;
+}
+
+.boton-delete{
+  background-color: red;
+}
+.boton-check{
+  background-color: greenyellow;
+}
+
+.boton-delete:hover{
+  background-color: rgb(255, 98, 0);
+}
+
+.boton-check:hover{
+  background-color: green;
+}
+
+body {
+  background-color: #101010;
+  color: white;
+}
+
+.formulario {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.div-tarea{
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  color: black;
+}
+
+.div-app{
+  background-color: rgb(151, 0, 252);
+  border: 2px white solid ;
+  width: 100%;
+  padding: 30px 40px;
+  border-radius: 4px;
+}
+
+.div-tarea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  width: 50%;
+}
+
+.boton-agregar {
+  background-color: green;
+  color: white;
+  border-color: green;
+  
+}
