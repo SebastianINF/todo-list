@@ -5,18 +5,18 @@
   text-decoration: none;
 }
 
-.boton-delete{
+.boton-delete {
   background-color: red;
 }
-.boton-check{
+.boton-check {
   background-color: greenyellow;
 }
 
-.boton-delete:hover{
+.boton-delete:hover {
   background-color: rgb(255, 98, 0);
 }
 
-.boton-check:hover{
+.boton-check:hover {
   background-color: green;
 }
 
@@ -32,7 +32,7 @@ body {
   margin-bottom: 30px;
 }
 
-.div-tarea{
+.div-tarea {
   display: flex;
   align-items: center;
 }
@@ -43,9 +43,9 @@ h1 {
   color: black;
 }
 
-.div-app{
+.div-app {
   background-color: rgb(151, 0, 252);
-  border: 2px white solid ;
+  border: 2px white solid;
   width: 100%;
   padding: 30px 40px;
   border-radius: 4px;
@@ -65,5 +65,9 @@ input {
   background-color: green;
   color: white;
   border-color: green;
-  
+}
+
+.section {
+  display: flex;
+  justify-content: center;
 }

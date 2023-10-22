@@ -1,60 +1,56 @@
-import {AiOutlineCloseCircle} from "react-icons/ai"
-import Checked from "./ButtonCheked";
-import { useState } from "react"
+// En tu componente ToDos
+import { useState } from 'react'
+import { AiOutlineCloseCircle } from 'react-icons/ai'
+import Checked from './ButtonCheked'
 
-export default function ToDos(){
-  
-  const [list , setList] = useState([]);
-  const [change, setChange] = useState("");
+export default function ToDos() {
+  const [tasks, setTasks] = useState([])
+  const [newTask, setNewTask] = useState('')
 
-  const handleSubmit = (e)=> {
-    e.preventDefault()
-    let input = document.getElementById("barra")
-    let texto = input.value
-    if(texto !== "" ){
-      list.push(texto)
-      setList(list)
-      setChange("")
+  const addTask = () => {
+    if (newTask !== '') {
+      const task = {
+        id: Date.now(),
+        text: newTask
+      }
+      setTasks([...tasks, task])
+      setNewTask('')
     }
   }
 
-  const handleChange = (e)=> {
-    setChange(e.target.value)
+  const removeTask = taskId => {
+    const updatedTasks = tasks.filter(task => task.id !== taskId)
+    setTasks(updatedTasks)
   }
 
   return (
-    <div className="div-app">
+    <div className='div-app'>
       <h1>ToDos</h1>
       <div>
-        <form onSubmit={handleSubmit} className="formulario">
+        <section className='section'>
           <input
-            id="barra"
-            type="text"
-            placeholder="Ingrese la tarea a realizar"
-            onChange={handleChange}
-            value={change}
+            type='text'
+            placeholder='Ingrese la tarea a realizar'
+            value={newTask}
+            onChange={e => setNewTask(e.target.value)}
           />
-          <button className="boton-agregar">Agregar Tarea</button>
-        </form>
-        {list && list.map((tarea, index, lista)=>{
-          return(
-            <div key={index} id={index} className="div-tarea">
-            <Checked tarea={tarea}/>
+          <button className='boton-agregar' onClick={addTask}>
+            Agregar Tarea
+          </button>
+        </section>
+
+        {tasks.map(task => (
+          <div key={task.id} className='div-tarea'>
+            <Checked tarea={task.text} />
             <button
-              className="boton-delete"
-              onClick={()=>{
-                const nuevasTareas = [...list];
-                nuevasTareas.splice(index, 1);
-                console.log(nuevasTareas)
-                setList(nuevasTareas);
-            }}
+              className='boton-delete'
+              onClick={() => removeTask(task.id)}
             >
-            <AiOutlineCloseCircle></AiOutlineCloseCircle> 
+              <AiOutlineCloseCircle />
             </button>
-            </div> 
-          )
-        })}
+          </div>
+        ))}
       </div>
     </div>
   )
-} 
+}
