@@ -7,13 +7,38 @@
 
 .boton-delete {
   background-color: red;
-}
-.boton-check {
-  background-color: greenyellow;
+  border: 1px solid #ff6565;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 20.2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
 }
 
 .boton-delete:hover {
   background-color: rgb(255, 98, 0);
+}
+
+.boton-check {
+  background-color: greenyellow;
+  border: 1px solid #bbf663;
+  border-radius: 3px;
+  cursor:pointer;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin: 0;
+  height: 20.2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
 }
 
 .boton-check:hover {
@@ -35,12 +60,13 @@ body {
 .div-tarea {
   display: flex;
   align-items: center;
+  margin: 5px;
 }
 
 h1 {
   display: flex;
   justify-content: center;
-  color: black;
+  color: white;
 }
 
 .div-app {
@@ -59,12 +85,39 @@ h1 {
 
 input {
   width: 50%;
+  outline: none;
+  border: 1.7px solid black;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  caret-color: blue;
 }
 
 .boton-agregar {
   background-color: green;
   color: white;
+  outline: none !important;
+  border: 1px solid greenyellow;
+  border-radius: 3px;
+  cursor:pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+}
+
+.boton-agregar:hover{
+  background-color: greenyellow;
   border-color: green;
+  color: black;
+}
+
+.boton-agregar:active{
+  background-color: greenyellow;
+  border-color: green;
+  color: black;
 }
 
 .section {

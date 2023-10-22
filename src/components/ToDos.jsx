@@ -25,7 +25,7 @@ export default function ToDos() {
 
   return (
     <div className='div-app'>
-      <h1>ToDos</h1>
+      <h1>Lista de Tareas</h1>
       <div>
         <section className='section'>
           <input
