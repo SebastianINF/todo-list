@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply box-border m-0 p-0 font-sans
+}
+
+body,
+html {
+  @apply w-full h-dvh text-white bg-[#242424]
+}
+
+h1 {
+  @apply text-balance
+}
+
+p {
+  @apply text-pretty 
+}
+
