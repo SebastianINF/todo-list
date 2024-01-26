@@ -3,19 +3,38 @@
 @tailwind utilities;
 
 * {
-  @apply box-border m-0 p-0 font-sans
+	@apply m-0 p-0 box-border
+}
+#root {
+	@apply w-full  
 }
 
-body,
-html {
-  @apply w-full h-dvh text-white bg-[#242424]
+body, html {
+	@apply font-sans w-full  flex justify-center bg-[#242424] text-white
+}
+
+body {
+	@apply w-full h-dvh
 }
 
 h1 {
-  @apply text-balance
+	@apply text-center text-balance
 }
 
 p {
-  @apply text-pretty 
+	@apply text-pretty
 }
+
+.counter-todos {
+	@apply my-[40px] mx-0 flex justify-around
+}
+
+span {
+	@apply text-orange-300 font-medium font-[24px] ml-3
+}
+
+ul li span {
+	@apply overflow-hidden cursor-pointer flex items-center
+}
+
 
