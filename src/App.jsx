@@ -6,41 +6,60 @@ import { CompleteButton } from './components/CompleteButton'
 
 export default function App() {
   const [wordInput, setWordInput] = useState('')
-  const [task, setTask] = useState([])
+  const [toDoList, setTodoList] = useState([])
 
   const handleChange = e => {
     setWordInput(e.target.value)
   }
 
   const addTask = () => {
-    const newTask = [...task]
+    const newTask = [...toDoList]
     newTask.push({ id: uuidv4(), task: wordInput, complete: false })
-    setTask(newTask)
+    setTodoList(newTask)
   }
 
   const updateComplete = id => {
-    const indexToReplace = task.findIndex(el => el.id === id)
-    const taskUpdate = [...task]
+    const indexToReplace = toDoList.findIndex(el => el.id === id)
+    const taskUpdate = [...toDoList]
     taskUpdate[indexToReplace] = {
       ...taskUpdate[indexToReplace],
       complete: !taskUpdate[indexToReplace].complete
     }
-    setTask(taskUpdate)
+    setTodoList(taskUpdate)
   }
 
   const deleteTask = id => {
-    const taskUpdate = task.filter(el => el.id !== id)
-    setTask(taskUpdate)
+    const taskUpdate = toDoList.filter(el => el.id !== id)
+    setTodoList(taskUpdate)
   }
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      addTask()
+    }
+  }
+  const updateTask = (id, textContent) => {
+    console.log(id)
+    console.log(textContent)
+    const indexToReplace = toDoList.findIndex(el => el.id === id)
+    const taskUpdate = [...toDoList]
+    taskUpdate[indexToReplace] = {
+      ...taskUpdate[indexToReplace],
+      task: textContent
+    }
+    setTodoList(taskUpdate)
+  }
   return (
     <main className='max-w-96 m-auto'>
       <section className='flex justify-between'>
         <input
-          className='outline-none border-blue-700 border-2 p-1 text-black rounded-xl w-full mr-2 py-2'
+          className='outline-none border-blue-400 border-2 p-1 text-black rounded-xl w-full mr-2 py-2'
           type='text'
+          id='inputTask'
           placeholder='Review presentation'
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         <button
           className='border-none bg-blue-400 rounded-xl hover:bg-blue-300 px-3 transition-colors'
@@ -50,7 +69,7 @@ export default function App() {
         </button>
       </section>
       <ul>
-        {task.map(objectTask => {
+        {toDoList.map(objectTask => {
           return (
             <Task
               key={objectTask.id}
@@ -59,6 +78,7 @@ export default function App() {
               complete={objectTask.complete}
               updateComplete={updateComplete}
               deleteTask={deleteTask}
+              updateTask={updateTask}
             />
           )
         })}
@@ -67,22 +87,29 @@ export default function App() {
   )
 }
 
-// eslint-disable-next-line react/prop-types
-function Task({ id, task, complete, updateComplete, deleteTask }) {
+function Task({ id, task, complete, updateComplete, deleteTask, updateTask }) {
+
   const changeComplete = () => {
     updateComplete(id)
   }
-  const pressDelete = () => {
+
+  const pressDelete = e => {
+    e.stopPropagation() // detiene la progagación del evento changeComplete
     deleteTask(id)
   }
+
+  const pressUpdate = e => {
+    e.stopPropagation() // detiene la progagación del evento changeComplete
+    // codigo aquí
+  }
+
   return (
-    <li className='flex justify-between p-2 my-3 bg-white text-[#242424] rounded-xl border-blue-400 border-2 items-center'>
+    <li
+      className='flex justify-between p-2 my-3 bg-white text-[#242424] rounded-xl border-blue-400 border-2 items-center select-none'
+      onClick={changeComplete}
+    >
       <div className='flex justify-between items-center'>
-        <CompleteButton
-          id={id}
-          complete={complete}
-          changeComplete={changeComplete}
-        />
+        <CompleteButton id={id} complete={complete} />
         <p
           className={`decoration-blue-600 decoration-2 font-bold  ${
             complete ? 'line-through' : ''
@@ -93,7 +120,10 @@ function Task({ id, task, complete, updateComplete, deleteTask }) {
       </div>
       <div className='flex items-center justify-between'>
         {/* update task */}
-        <button className='p-2 cursor-pointer rounded-lg bg-blue-400 hover:bg-blue-200 hover:text-black text-white mr-1 transition'>
+        <button
+          className='p-2 cursor-pointer rounded-lg bg-blue-400 hover:bg-blue-200 hover:text-black text-white mr-1 transition'
+          onClick={pressUpdate}
+        >
           <FaEdit />
         </button>
         {/* delete task */}
