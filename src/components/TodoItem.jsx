@@ -36,21 +36,21 @@ export function TodoItem({
     <li>
       {/* Arreglar esto */}
       <form
-        className='flex justify-between items-center gap-5 bg-white border-2 border-blue-400 rounded-md py-1'
+        className='flex justify-between items-center gap-5 bg-white border-2 border-blue-400 rounded-md py-1 relative'
         onSubmit={onSubmitUpdate}
       >
         <button
           type='button'
           onClick={() => handleCompleteTodo(todo.id)}
-          className={`rounded-full border-2 ml-2 border-blue-500 size-5 ${
-            todo.done ? 'bg-blue-400 text-white' : 'bg-white text-white'
+          className={`rounded-full border-2 ml-2 border-blue-500 size-5 text-white ${
+            todo.done ? 'bg-blue-400' : 'bg-white'
           }`}
         >
-          <FaCheck />
+          <FaCheck className={todo.done? 'visible': 'invisible'}/>
         </button>
         <input
           type='text'
-          className={`border-none font-medium text-black  w-full outline-none mr-3 ${
+          className={`border-none font-medium text-black  w-full outline-none mr-3 caret-green-700 ${
             todo.done ? 'line-through decoration-blue-600' : ''
           }`}
           name='updateDescription'
@@ -59,6 +59,7 @@ export function TodoItem({
           placeholder='Empty Task'
           readOnly={disabled}
           ref={focusInputRef}
+          autoComplete='off'
         />
         <div className='flex justify-between space-x-2'>
           <button
