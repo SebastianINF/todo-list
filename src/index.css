@@ -14,7 +14,7 @@ body, html {
 }
 
 body {
-	@apply w-full h-dvh
+	@apply w-dvw h-dvh
 }
 
 h1 {

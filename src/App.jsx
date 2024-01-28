@@ -14,7 +14,7 @@ function App() {
   } = useTodo()
 
   return (
-      <main className='p-5 bg-neutral-800 rounded-md shadow-green-800 shadow-2xl max-w-4xl mx-auto'>
+      <main className='p-5 bg-neutral-800 rounded-md shadow-green-800 shadow-2xl max-w-4xl mx-auto mt-10'>
         <div className=' mx-0 flex mb-2 justify-around'>
           <h3 className=' text-center font-[24px]'>
             Tasks: <span>{todosCount}</span>
