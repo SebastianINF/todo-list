@@ -15,7 +15,7 @@ export const useTodo = () => {
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
-  }, [todos])
+  }, [todos] )
 
   const handleNewTodo = todo => {
     const action = {
