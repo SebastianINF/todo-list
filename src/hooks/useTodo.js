@@ -1,63 +1,80 @@
-import { useEffect, useReducer } from 'react'
-import { todoReducer } from '../todoreducer'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export const useTodo = () => {
-  const initialState = []
-
-  const init = () => {
-    return JSON.parse(localStorage.getItem('todos')) || []
-  }
-
-  const [todos, dispatch] = useReducer(todoReducer, initialState, init)
-
-  const todosCount = todos.length
-  const pendingTodosCount = todos.filter(todo => !todo.done).length
+  const [initialState, setInitialState] = useState([])
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos))
-  }, [todos] )
+    (async () => {
+      const result = await axios.get('http://localhost:3000/api/tasks')
+      setInitialState(result.data)
+    })()
+  }, [])
+
+  const todosCount = initialState.length
+  const pendingTodosCount = initialState.filter(todo => !todo.complete).length
 
   const handleNewTodo = todo => {
-    const action = {
-      type: 'Add Todo',
-      payload: todo
+    try {
+      (async () => {
+        const result = await axios.post('http://localhost:3000/api/tasks', todo)
+        const newTodo = [...initialState]
+        newTodo.push(result.data)
+        setInitialState(newTodo)
+      })()
+    } catch (error) {
+      console.log(error)
     }
-
-    dispatch(action)
-  }
-
-  const handleDeleteTodo = id => {
-    const action = {
-      type: 'Delete Todo',
-      payload: id
-    }
-
-    dispatch(action)
-  }
-
-  const handleCompleteTodo = id => {
-    const action = {
-      type: 'Complete Todo',
-      payload: id
-    }
-
-    dispatch(action)
   }
 
   const handleUpdateTodo = (id, description) => {
-    const action = {
-      type: 'Update Todo',
-      payload: {
-        id,
-        description
-      }
+    try {
+      (async () => {
+        const task = initialState.filter(task => task.task_id === id)
+        const updateTask = {
+          task: description,
+          complete: task[0].complete === 1 ? true : false
+        }
+        await axios.put(`http://localhost:3000/api/tasks/${id}`, updateTask)
+        const result = await axios.get('http://localhost:3000/api/tasks/')
+        setInitialState(result.data)
+      })()
+    } catch (error) {
+      console.log(error)
     }
+  }
 
-    dispatch(action)
+  const handleCompleteTodo = id => {
+    try {
+      (async () => {
+        const task = initialState.filter(task => task.task_id === id)
+        const updateTask = {
+          task: task[0].task,
+          complete: !(task[0].complete === 1 ? true : false)
+        }
+        await axios.put(`http://localhost:3000/api/tasks/${id}`, updateTask)
+        const result = await axios.get('http://localhost:3000/api/tasks/')
+        setInitialState(result.data)
+      })()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleDeleteTodo = id => {
+    try {
+      (async () => {
+        const modifiedTodo = initialState.filter(task => task.id !== id)
+        await axios.delete(`http://localhost:3000/api/tasks/${id}`)
+        setInitialState(modifiedTodo)
+      })()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return {
-    todos,
+    initialState,
     todosCount,
     pendingTodosCount,
     handleNewTodo,
